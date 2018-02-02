@@ -6,6 +6,8 @@
   "author": "LeFich",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.3.0"
+    "delay": "^2.0.0",
+    "discord.js": "^11.3.0",
+    "moment": "^2.20.1"
   }
 }
