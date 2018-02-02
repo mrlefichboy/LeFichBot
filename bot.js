@@ -48,4 +48,4 @@ bot.on("message", async message => {
 
 
 
-console.log(bs.token);
+console.log(process.env.BOT_TOKEN);
