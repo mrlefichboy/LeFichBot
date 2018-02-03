@@ -3,6 +3,7 @@ const prf = bs.prf;
 const discord = require ("discord.js");
 const bot = new discord.Client;
 const moment = require("moment");
+const muisti = require("./arvoja.json");
 let b = "";
 var array1
 
@@ -27,6 +28,11 @@ bot.on("message", async message => {
 	let cm = msaray[0];
 	let args = msaray.slice(1);
 	let info = args[0];
+	
+	let f = message.channel;
+	
+
+	//message.channel.sendMessage(message.channel);
 
 	
 	if (cm === `${prf}bg`) {
@@ -51,8 +57,8 @@ bot.on("message", async message => {
 		message.channel.sendMessage(b);
 		b = "";
 	};
+	let a = moment();
+	let c = moment ([2017, 2, 1]);
 });
 
-
-
-console.log(process.env.BOT_TOKEN);
+//fs.write.file("./arvoja.json", "lel:lol");
