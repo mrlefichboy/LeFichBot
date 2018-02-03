@@ -39,7 +39,7 @@ bot.on("message", async message => {
 				else if (element === "8") b = b + ":eight:";
 				else b = b + ":nine:";
 			});
-		bot.channels.get(`394578683114815499`).sendMessage(b);
+		bot.channels.get(process.env.kanava).sendMessage(b);
 		b = "";
 	});
 		
