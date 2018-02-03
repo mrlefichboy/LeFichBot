@@ -4,20 +4,35 @@ const discord = require ("discord.js");
 const bot = new discord.Client;
 const moment = require("moment");
 const muisti = require("./arvoja.json");
+const ajastin = require("node-schedule");
+const paiva = moment ([2018, 1, 2]);
+const fs = require('fs');
+const giphy = require('giphy-api')();
 let b = "";
 var array1
+
 
 // expected output: "a"
 // expected output: "b"
 // expected output: "c"
 
 bot.on("ready", () => {
-	console.log('Bot is ready! ${bot.user.username}');
+	
+	console.log(`Bot is ready! ${bot.user.username}`);
 });
 
-bot.login(bs.token);
+//bot.login(bs.token);
+bot.login(process.env.BOT_TOKEN);
 
 bot.on("message", async message => {
+	
+	var j = ajastin.scheduleJob('52 * * * *', function(){
+		let paiva2 = moment();
+		//bot.channels.get(`394578683114815499`).sendMessage(paiva2.diff(paiva, `days`) + 971);
+		console.log("leel");
+		});
+		
+		
 	if (message.author.bot) return;
 	if (message.channel.type === "dm") return;
 
@@ -29,10 +44,7 @@ bot.on("message", async message => {
 	let args = msaray.slice(1);
 	let info = args[0];
 	
-	let f = message.channel;
-	
 
-	//message.channel.sendMessage(message.channel);
 
 	
 	if (cm === `${prf}bg`) {
@@ -53,12 +65,8 @@ bot.on("message", async message => {
 			else if (element === "8") b = b + ":eight:";
 			else b = b + ":nine:";
 		});
-		
-		message.channel.sendMessage(b);
+		message.channel.send(b);
 		b = "";
 	};
-	let a = moment();
-	let c = moment ([2017, 2, 1]);
-});
 
-//fs.write.file("./arvoja.json", "lel:lol");
+});
