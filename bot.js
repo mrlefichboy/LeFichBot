@@ -9,12 +9,7 @@ const paiva = moment ([2018, 1, 2]);
 const fs = require('fs');
 const giphy = require('giphy-api')();
 let b = "";
-var array1
 
-
-// expected output: "a"
-// expected output: "b"
-// expected output: "c"
 
 bot.on("ready", () => {
 	
@@ -22,21 +17,36 @@ bot.on("ready", () => {
 });
 
 //bot.login(bs.token);
-bot.login(process.env.BOT_TOKEN);
+//bot.login(process.env.BOT_TOKEN);
 
 bot.on("message", async message => {
 	
-	var j = ajastin.scheduleJob('1 7 * * *', function(){
-		let paiva2 = moment();
-		bot.channels.get(`394578683114815499`).sendMessage(paiva2.diff(paiva, `days`) + 971);
-		console.log("leel");
-		});
+		var j = ajastin.scheduleJob('1 7 * * *', function(){
+			let paiva2 = moment();
+			let num = paiva2.diff(paiva, `days`);
+			num += 971;
+			let nro = num.toString();
+			let aray2 = nro.split("")
+			aray2.forEach(function(element) {
+				if (element === "0") b = b + ":zero:";
+				else if (element === "1") b = b + ":one:";
+				else if (element === "2") b = b + ":two:";
+				else if (element === "3") b = b + ":three:";
+				else if (element === "4") b = b + ":four:";
+				else if (element === "5") b = b + ":five:";
+				else if (element === "6") b = b + ":six:";
+				else if (element === "7") b = b + ":seven:";
+				else if (element === "8") b = b + ":eight:";
+				else b = b + ":nine:";
+			});
+		bot.channels.get(`394578683114815499`).sendMessage(b);
+		b = "";
+	});
 		
 		
 	if (message.author.bot) return;
 	if (message.channel.type === "dm") return;
 
-	
 	let msaray = message.content.split(" ");
 	if (!message.content.startsWith(prf)) return;
 	
@@ -44,8 +54,6 @@ bot.on("message", async message => {
 	let args = msaray.slice(1);
 	let info = args[0];
 	
-
-
 	
 	if (cm === `${prf}bg`) {
 		message.delete();
@@ -68,5 +76,5 @@ bot.on("message", async message => {
 		message.channel.send(b);
 		b = "";
 	};
-
+	
 });
