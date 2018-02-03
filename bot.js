@@ -26,7 +26,7 @@ bot.login(process.env.BOT_TOKEN);
 
 bot.on("message", async message => {
 	
-	var j = ajastin.scheduleJob('52 * * * *', function(){
+	var j = ajastin.scheduleJob('1 7 * * *', function(){
 		let paiva2 = moment();
 		//bot.channels.get(`394578683114815499`).sendMessage(paiva2.diff(paiva, `days`) + 971);
 		console.log("leel");
