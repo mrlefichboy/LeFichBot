@@ -18,6 +18,7 @@ let b = "";
 
 bot.on("ready", () => {
 	console.log(`Bot is ready! ${bot.user.username}`);
+	bot.user.setPresence({ status: 'online', game: { name: 'Playing with your mam' } });
 });
 
 //bot.login(bs.token);
