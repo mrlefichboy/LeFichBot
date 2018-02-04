@@ -20,30 +20,8 @@ bot.on("ready", () => {
 //bot.login(bs.token);
 bot.login(process.env.BOT_TOKEN);
 		
-	var j = ajastin.scheduleJob('1 8 * * *', function(){
-		let paiva2 = moment();
-		let num = paiva2.diff(paiva, `days`);
-		num += 971;
-		let nro = num.toString();
-		let aray2 = nro.split("")
-		aray2.forEach(function(element) {
-			if (element === "0") b = b + ":zero:";
-			else if (element === "1") b = b + ":one:";
-			else if (element === "2") b = b + ":two:";
-			else if (element === "3") b = b + ":three:";
-			else if (element === "4") b = b + ":four:";
-			else if (element === "5") b = b + ":five:";
-			else if (element === "6") b = b + ":six:";
-			else if (element === "7") b = b + ":seven:";
-			else if (element === "8") b = b + ":eight:";
-			else b = b + ":nine:";
-			});
-		bot.channels.get(`394578683114815499`).sendMessage(b);
-		b = "";
-	//console.log("done");
-	});
-
-		bot.on("message", async message => {
+	
+bot.on("message", async message => {
 			
 	if (message.author.bot) return;
 	if (message.channel.type === "dm") return;
@@ -77,5 +55,41 @@ bot.login(process.env.BOT_TOKEN);
 		message.channel.send(b);
 		b = "";
 	};
+
 	
 });
+
+bot.on("message", async message => {
+	if (message.author.bot) return;
+	if (message.channel.type === "dm") return;
+	
+	if (message.content.indexOf("volle") !== -1){
+		message.reply("WOW", {files: ["https://cdn.discordapp.com/attachments/394576839378731019/408917377527447562/image.jpg"]});
+	};
+});
+
+
+
+	var j = ajastin.scheduleJob('1 8 * * *', function(){
+		let paiva2 = moment();
+		let num = paiva2.diff(paiva, `days`);
+		num += 971;
+		let nro = num.toString();
+		let aray2 = nro.split("")
+		aray2.forEach(function(element) {
+			if (element === "0") b = b + ":zero:";
+			else if (element === "1") b = b + ":one:";
+			else if (element === "2") b = b + ":two:";
+			else if (element === "3") b = b + ":three:";
+			else if (element === "4") b = b + ":four:";
+			else if (element === "5") b = b + ":five:";
+			else if (element === "6") b = b + ":six:";
+			else if (element === "7") b = b + ":seven:";
+			else if (element === "8") b = b + ":eight:";
+			else b = b + ":nine:";
+			});
+		bot.channels.get(`394578683114815499`).sendMessage(b);
+		b = "";
+	//console.log("done");
+	});
+
