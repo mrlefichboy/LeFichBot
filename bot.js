@@ -38,8 +38,12 @@ bot.login(process.env.BOT_TOKEN);
 				else if (element === "8") b = b + ":eight:";
 				else b = b + ":nine:";
 			});
+<<<<<<< HEAD
 		bot.channels.get(`394578683114815499`).send(b);
 		
+=======
+		bot.channels.get(process.env.kanava).sendMessage(b);
+>>>>>>> c650d847935566bc95982a5fb9c0bf9648b950b4
 		b = "";
 	console.log("done");
 	});
