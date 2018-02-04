@@ -20,7 +20,7 @@ bot.on("ready", () => {
 //bot.login(bs.token);
 bot.login(process.env.BOT_TOKEN);
 		
-	var j = ajastin.scheduleJob('40 9 * * *', function(){
+	var j = ajastin.scheduleJob('1 8 * * *', function(){
 		let paiva2 = moment();
 		let num = paiva2.diff(paiva, `days`);
 		num += 971;
