@@ -14,14 +14,13 @@ let b = "";
 bot.on("ready", () => {
 	
 	console.log(`Bot is ready! ${bot.user.username}`);
+
 });
 
 //bot.login(bs.token);
 bot.login(process.env.BOT_TOKEN);
-
-bot.on("message", async message => {
-	
-		var j = ajastin.scheduleJob('1 7 * * *', function(){
+		
+	var j = ajastin.scheduleJob('33 9 * * *', function(){
 			let paiva2 = moment();
 			let num = paiva2.diff(paiva, `days`);
 			num += 971;
@@ -39,9 +38,15 @@ bot.on("message", async message => {
 				else if (element === "8") b = b + ":eight:";
 				else b = b + ":nine:";
 			});
-		bot.channels.get(`394578683114815499`).sendMessage(b);
+		bot.channels.get(`394578683114815499`).send(b);
+		
 		b = "";
+	console.log("done");
 	});
+
+		bot.on("message", async message => {
+
+	
 		
 		
 	if (message.author.bot) return;
