@@ -63,7 +63,7 @@ bot.on("message", async message => {
 	if (message.author.bot) return;
 	if (message.channel.type === "dm") return;
 	
-	if (message.content.indexOf("volle") !== -1){
+	if (message.content.indexOf("!volle") !== -1){
 		message.reply("WOW", {files: ["https://cdn.discordapp.com/attachments/394576839378731019/408917377527447562/image.jpg"]});
 	};
 });
@@ -90,6 +90,5 @@ bot.on("message", async message => {
 			});
 		bot.channels.get(`394578683114815499`).sendMessage(b);
 		b = "";
-	//console.log("done");
 	});
 
