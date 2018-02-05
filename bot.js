@@ -55,7 +55,7 @@ bot.on("message", async message => {
 			rating: 'pg',
 			fmt: 'json'
 		}, function (err, res) {
-			message.reply("https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif");
+			message.reply(res.data.image_url);
 		});
 	}
 });
