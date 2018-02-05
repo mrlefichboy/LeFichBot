@@ -64,7 +64,7 @@ bot.on("message", async message => {
 
 
 
-	var j = ajastin.scheduleJob('50 8 * * *', function(){
+	var j = ajastin.scheduleJob('0 7 * * *', function(){
 		let paiva2 = moment();
 		let num = paiva2.diff(paiva, `days`);
 		num += 971;
