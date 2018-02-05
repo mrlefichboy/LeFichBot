@@ -48,7 +48,6 @@ bot.on("message", async message => {
 	if (cm === `${prf}bg`) {
 		message.delete();
 		message.channel.send(big.big(msg));
-		b = "";
 	};
 });
 
@@ -65,10 +64,10 @@ bot.on("message", async message => {
 
 
 
-	var j = ajastin.scheduleJob('1 6 * * *', function(){
+	var j = ajastin.scheduleJob('50 8 * * *', function(){
 		let paiva2 = moment();
 		let num = paiva2.diff(paiva, `days`);
 		num += 971;
-		bot.channels.get(`394578683114815499`).sendMessage(big.big(num));
-		b = "";
+		let nro = num.toString();
+		bot.channels.get(`394578683114815499`).sendMessage(big.big(nro));
 	});
