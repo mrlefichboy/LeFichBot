@@ -21,8 +21,8 @@ bot.on("ready", () => {
 	bot.user.setPresence({ status: 'online', game: { name: 'Playing with your mam' } });
 });
 
-//bot.login(bs.token);
-bot.login(process.env.BOT_TOKEN);
+bot.login(bs.token);
+//bot.login(process.env.BOT_TOKEN);
 		
 	
 bot.on("message", async message => {
