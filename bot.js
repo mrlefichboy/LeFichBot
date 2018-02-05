@@ -4,7 +4,7 @@ const muisti = require("./json_file/arvoja.json");
 const moment = require("moment");
 const ajastin = require("node-schedule");
 const fs = require('fs');
-const giphy = require('giphy-api')();
+const giphy = require('giphy-api')('Rwev3tsFgdkDyCkYjRsMoJ9YLsvmatnU');
 
 const discord = require ("discord.js");
 const big = require("./code/big.js");
@@ -21,8 +21,8 @@ bot.on("ready", () => {
 	bot.user.setPresence({ status: 'online', game: { name: 'Playing with your mam' } });
 });
 
-bot.login(bs.token);
-//bot.login(process.env.BOT_TOKEN);
+//bot.login(bs.token);
+bot.login(process.env.BOT_TOKEN);
 		
 	
 bot.on("message", async message => {
@@ -33,8 +33,6 @@ bot.on("message", async message => {
 
 	let msaray = message.content.split(" ");
 	if (!message.content.startsWith(prf)) return;
-	
-
 	
 	let cm = msaray[0];
 	let args = msaray.slice(1);
@@ -49,6 +47,17 @@ bot.on("message", async message => {
 		message.delete();
 		message.channel.send(big.big(msg));
 	};
+	
+	if (cm === "!gif") {
+		message.delete();
+		giphy.random({
+			tag: info,
+			rating: 'pg',
+			fmt: 'json'
+		}, function (err, res) {
+			message.reply("https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif");
+		});
+	}
 });
 
 
@@ -59,6 +68,14 @@ bot.on("message", async message => {
 	
 	if (message.content.indexOf("!volle") !== -1){
 		message.reply("WOW", {files: ["https://cdn.discordapp.com/attachments/394576839378731019/408917377527447562/image.jpg"]});
+	};
+	
+	if (message.content.indexOf("homo")!== -1){
+	message.reply("No I'm not\n https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif");
+	} else if (message.content.indexOf("Homo")!== -1){
+	message.reply("No I'm not\n https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif");
+	} else if (message.content.indexOf("HOMO")!== -1){
+	message.reply("No I'm not\n https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif");
 	};
 });
 
