@@ -9,6 +9,7 @@ const giphy = require('giphy-api')('Rwev3tsFgdkDyCkYjRsMoJ9YLsvmatnU');
 const discord = require ("discord.js");
 const big = require("./code/big.js");
 const gif = require("./code/giphy.js");
+const discord_cmd = require("./code/discord_cmd.js");
 
 const prf = bs.prf;
 const paiva = moment ([2018, 1, 2]);
@@ -38,6 +39,7 @@ bot.on("message", async message => {
 	let cm = msaray[0];
 	let args = msaray.slice(1);
 	let info = args[0];
+	let	user1 = message.guild.member(message.mentions.users.first()) || message.guild.members.get(info);;
 	
 	let msg = "";
 	args.forEach(function(element){
@@ -51,9 +53,21 @@ bot.on("message", async message => {
 	};
 	
 	//gif functio
-	if (cm === "!gif") {
+	if (cm === `${prf}gif`) {
 		message.delete();
 		gif.gif(info, message);
+	}
+	
+	//mute
+	if (cm === `${prf}mute`) {
+		message.delete();
+		discord_cmd.mute(message, user1, bot);
+	}
+
+	//unmute
+	if (cm === `${prf}unmute`){
+		message.delete();
+		discord_cmd.unMute(message, user1);
 	}
 });
 

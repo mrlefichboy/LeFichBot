@@ -1,3 +1,3 @@
 {
-	"igonore":"./arvoja.json"
+	"ignore": ["./json_file/*"]
 }
