@@ -71,9 +71,7 @@ bot.on("message", async message => {
 	//mute
 	if (cm === `${prf}mute`) {
 		message.delete();
-		if (!isNaN(info2)) {
 		discord_cmd.mute(message, user1, bot, info2, muted);
-		} else message.channel.send("try again with time")
 	}
 
 	//unmute
