@@ -1,5 +1,6 @@
 const bs = require("./json_file/setting.json");
 const muisti = require("./json_file/arvoja.json");
+const muted = require("./json_file/muted.json");
 
 const moment = require("moment");
 const ajastin = require("node-schedule");
@@ -10,6 +11,8 @@ const discord = require ("discord.js");
 const big = require("./code/big.js");
 const gif = require("./code/giphy.js");
 const discord_cmd = require("./code/discord_cmd.js");
+const unMuteOff = require("./code/unmute.js");
+
 
 const prf = bs.prf;
 const paiva = moment ([2018, 1, 2]);
@@ -18,9 +21,15 @@ const bot = new discord.Client;
 let b = "";
 
 
-bot.on("ready", () => {
+bot.on("ready",() => {
 	console.log(`Bot is ready! ${bot.user.username}`);
 	bot.user.setPresence({ status: 'online', game: { name: 'Playing with your mam' } });
+	
+	bot.setInterval(() =>  {
+		for(let i in muted) {
+		unMuteOff.unMute(i, muted, bot);
+		}
+	}, 5000)
 });
 
 //bot.login(bs.token);
@@ -39,7 +48,8 @@ bot.on("message", async message => {
 	let cm = msaray[0];
 	let args = msaray.slice(1);
 	let info = args[0];
-	let	user1 = message.guild.member(message.mentions.users.first()) || message.guild.members.get(info);;
+	let info2 = args[1];
+	let	user1 = message.guild.member(message.mentions.users.first()) || message.guild.members.get(info);
 	
 	let msg = "";
 	args.forEach(function(element){
@@ -61,14 +71,15 @@ bot.on("message", async message => {
 	//mute
 	if (cm === `${prf}mute`) {
 		message.delete();
-		discord_cmd.mute(message, user1, bot);
+		discord_cmd.mute(message, user1, bot, info2, muted);
 	}
 
 	//unmute
 	if (cm === `${prf}unmute`){
 		message.delete();
-		discord_cmd.unMute(message, user1);
+		discord_cmd.unMute(message, user1, muted);
 	}
+
 });
 
 
