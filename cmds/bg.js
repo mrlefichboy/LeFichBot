@@ -1,6 +1,8 @@
-exports.big=function (sana){
+
+module.exports.run = async (bot,message, args, msg) => {
+	message.delete();
 		let b = ""
-		let array1 = sana.split("");;
+		let array1 = msg.split("");
 		array1.forEach(function(element) {
 			if (isNaN(element))b = b + ":regional_indicator_" + element + ":";
 			else if (element === "0") b = b + ":zero:";
@@ -14,5 +16,9 @@ exports.big=function (sana){
 			else if (element === "8") b = b + ":eight:";
 			else b = b + ":nine:";
 		});
-			return b;
+			message.channel.send(b);
+}
+
+module.exports.help = {
+	name: "bg"
 }

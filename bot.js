@@ -1,24 +1,41 @@
 const bs = require("./json_file/setting.json");
 const muisti = require("./json_file/arvoja.json");
-const muted = require("./json_file/muted.json");
 
 const moment = require("moment");
 const ajastin = require("node-schedule");
 const fs = require('fs');
-const giphy = require('giphy-api')('Rwev3tsFgdkDyCkYjRsMoJ9YLsvmatnU');
-
 const discord = require ("discord.js");
-const big = require("./code/big.js");
-const gif = require("./code/giphy.js");
-const discord_cmd = require("./code/discord_cmd.js");
-const unMuteOff = require("./code/unmute.js");
 
+const unMuteOff = require("./code/unMuteOff.js");
+const big = require("./code/big.js");
 
 const prf = bs.prf;
 const paiva = moment ([2018, 1, 2]);
 const bot = new discord.Client;
 
-let b = "";
+bot.commands = new discord.Collection();
+bot.muted = require("./json_file/muted.json");
+
+
+
+fs.readdir("./cmds/", (err, files) => {
+	if (err) console.error(err);
+
+	let jsFiles = files.filter(f => f.split(".").pop() === "js");
+	if(jsFiles.lengt <= 0){
+		console.log("no command found");
+	}
+	console.log(`loding ${jsFiles.length} commands`);
+
+	jsFiles.forEach((f, i) => {
+		let props = require(`./cmds/${f}`);
+		console.log(`${i + 1}: ${f} loaded`);
+		bot.commands.set(props.help.name, props);
+
+	});
+});
+
+
 
 
 bot.on("ready",() => {
@@ -26,12 +43,12 @@ bot.on("ready",() => {
 	bot.user.setPresence({ status: 'online', game: { name: 'Playing with your mam' } });
 	
 	bot.setInterval(() =>  {
-		for(let i in muted) {
-		unMuteOff.unMute(i, muted, bot);
+		for(let i in bot.muted) {
+		unMuteOff.unMute(i, bot.muted, bot);
 		}
 	}, 5000)
 });
-
+//
 //bot.login(bs.token);
 bot.login(process.env.BOT_TOKEN);
 		
@@ -47,38 +64,14 @@ bot.on("message", async message => {
 	
 	let cm = msaray[0];
 	let args = msaray.slice(1);
-	let info = args[0];
-	let info2 = args[1];
-	let	user1 = message.guild.member(message.mentions.users.first()) || message.guild.members.get(info);
 	
 	let msg = "";
 	args.forEach(function(element){
 		msg = msg + element;
 	});
-	
-	//big leathet
-	if (cm === `${prf}bg`) {
-		message.delete();
-		message.channel.send(big.big(msg));
-	};
-	
-	//gif functio
-	if (cm === `${prf}gif`) {
-		message.delete();
-		gif.gif(info, message);
-	}
-	
-	//mute
-	if (cm === `${prf}mute`) {
-		message.delete();
-		discord_cmd.mute(message, user1, bot, info2, muted);
-	}
 
-	//unmute
-	if (cm === `${prf}unmute`){
-		message.delete();
-		discord_cmd.unMute(message, user1, muted);
-	}
+	let cmd = bot.commands.get(cm.slice(prf.length))
+	if(cmd) cmd.run(bot, message, args, msg)
 
 });
 
@@ -87,29 +80,22 @@ bot.on("message", async message => {
 bot.on("message", async message => {
 	if (message.author.bot) return;
 	if (message.channel.type === "dm") return;
-	
-	//volle
-	if (message.content.indexOf("!volle") !== -1){
-		message.reply("WOW", {files: ["https://cdn.discordapp.com/attachments/394576839378731019/408917377527447562/image.jpg"]});
-	};
-	
+
+	let file = "https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif";
+
 	//homo command
-	if (message.content.indexOf("homo")!== -1){
-	message.reply("No I'm not\n https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif");
-	} else if (message.content.indexOf("Homo")!== -1){
-	message.reply("No I'm not\n https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif");
-	} else if (message.content.indexOf("HOMO")!== -1){
-	message.reply("No I'm not\n https://media0.giphy.com/media/11aCNnhizTWfXW/giphy.gif");
+	if (message.content.indexOf("homo ")!== -1){
+		message.reply("No I'm not\n", {files: [file]});
+	} else if (message.content.indexOf("Homo ")!== -1){
+	message.reply("No I'm not\n", {files: [file]});
+	} else if (message.content.indexOf("HOMO ")!== -1){
+		message.reply("No I'm not\n", {files: [file]});
 	};
 
 	//true command
-	if (message.content.indexOf("true")!== -1){
+	if (message.content.indexOf("TRUE")!== -1){
 		message.channel.sendMessage("TRUE\n https://media1.giphy.com/media/3ohc19EK1gypvsYQgg/giphy.gif");
-	}else if (message.content.indexOf("True")!== -1){
-		message.channel.sendMessage("TRUE\n https://media1.giphy.com/media/3ohc19EK1gypvsYQgg/giphy.gif");
-	}else if (message.content.indexOf("TRUE")!== -1){
-		message.channel.sendMessage("TRUE\n https://media1.giphy.com/media/3ohc19EK1gypvsYQgg/giphy.gif");
-	};
+	}
 });
 
 //ajastin
@@ -118,6 +104,6 @@ bot.on("message", async message => {
 		let num = paiva2.diff(paiva, `days`);
 		num += 971;
 		let nro = num.toString();
-		bot.channels.get(`394578683114815499`).sendMessage(big.big(nro));
+		bot.channels.get(`${process.env.kanava}`).sendMessage(big.big(nro));
 	});
 	

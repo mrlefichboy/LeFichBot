@@ -1,13 +1,18 @@
 const giphy = require('giphy-api')('Rwev3tsFgdkDyCkYjRsMoJ9YLsvmatnU');
-var a = ""
 const discord = require ("discord.js");
 
-exports.gif = function (gif, message){
+module.exports.run = async (bot,message, args, msg) => {
+	message.delete();
+	let gif = args[0];
 	giphy.random({
 		tag: gif,
 		rating: 'pg',
 		fmt: 'json'
 	}, function (err, res) {
-		message.reply(res.data.image_url);
+		message.reply({files: [res.data.image_url]});
 	});
+}
+
+module.exports.help = {
+	name: "gif"
 }
